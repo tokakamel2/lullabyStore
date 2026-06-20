@@ -17,6 +17,10 @@ Tailwind CSS, shadcn/ui-style components, and Supabase.
 │   │   │   │       ├── new/page.tsx
 │   │   │   │       └── [id]/edit/page.tsx
 │   │   │   └── login/page.tsx
+│   │   ├── api
+│   │   │   └── supabase
+│   │   │       ├── products/route.ts
+│   │   │       └── admin/products/stats/route.ts
 │   │   ├── cart/page.tsx
 │   │   ├── products
 │   │   │   ├── page.tsx
@@ -71,6 +75,9 @@ Tailwind CSS, shadcn/ui-style components, and Supabase.
 - Seed data includes sample handmade candle products.
 - The app uses sample fallback products if Supabase environment variables are not configured, so local builds can run
   before backend setup.
+- `@supabase/server` is installed for header-authenticated request handlers that expose:
+  - `ctx.supabase` as an RLS-scoped client.
+  - `ctx.supabaseAdmin` as an admin client that bypasses RLS.
 
 ## Setup
 
@@ -89,11 +96,19 @@ Tailwind CSS, shadcn/ui-style components, and Supabase.
 3. Create a Supabase project and fill in:
 
    ```env
+   SUPABASE_URL=
+   SUPABASE_PUBLISHABLE_KEY=
+   SUPABASE_SECRET_KEY=
+   SUPABASE_JWKS_URL=
    NEXT_PUBLIC_SUPABASE_URL=
+   NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
    NEXT_PUBLIC_SUPABASE_ANON_KEY=
    ADMIN_EMAILS=
    NEXT_PUBLIC_WHATSAPP_PHONE=
    ```
+
+   Copy the real `SUPABASE_*` values from the Supabase dashboard's Connect dialog. Do not commit the real
+   `SUPABASE_SECRET_KEY`; keep it only in local or deployment environment variables.
 
 4. In Supabase SQL Editor, run:
 
@@ -119,3 +134,33 @@ npm run build
 npm run lint
 npm run typecheck
 ```
+
+## `@supabase/server` request handlers
+
+The project includes Next.js route handlers wrapped with `withSupabase` from `@supabase/server`.
+
+### User-authenticated RLS endpoint
+
+```http
+GET /api/supabase/products
+Authorization: Bearer <supabase-user-access-token>
+```
+
+This route uses `auth: "user"` and queries active products with `ctx.supabase`, so Row-Level Security applies to the
+authenticated user.
+
+### Secret-key protected admin endpoint
+
+```http
+GET /api/supabase/admin/products/stats
+apikey: <SUPABASE_SECRET_KEY>
+```
+
+This route uses `auth: "secret"` and reads product statistics with `ctx.supabaseAdmin`, which bypasses RLS. Use it only
+for trusted server-to-server calls.
+
+### Supabase Edge Function note
+
+The routes above are Next.js route handlers. If you copy this pattern into Supabase Edge Functions and use
+`auth: "publishable"`, `auth: "secret"`, or `auth: "none"`, set `verify_jwt = false` for that function in
+`supabase/config.toml`; `auth: "user"` can keep JWT verification enabled.
