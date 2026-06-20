@@ -22,8 +22,11 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b bg-background/80 backdrop-blur-xl">
       <div className="container-padded flex h-20 items-center justify-between">
-        <Link href="/" className="font-serif text-2xl font-semibold tracking-tight text-primary">
-          Lullaby Candle Co.
+        <Link href="/" className="flex items-center gap-3 font-serif text-2xl font-semibold tracking-tight text-primary">
+          <span className="grid h-10 w-10 place-items-center rounded-full bg-[linear-gradient(135deg,hsl(var(--primary)),hsl(var(--accent)))] text-sm text-primary-foreground shadow-sm">
+            L
+          </span>
+          <span>Lullaby Candle Co.</span>
         </Link>
 
         <nav className="hidden items-center gap-8 md:flex">

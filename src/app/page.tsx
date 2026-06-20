@@ -36,7 +36,7 @@ export default async function HomePage() {
         <div className="relative">
           <div className="absolute -left-8 top-8 h-40 w-40 rounded-full bg-accent blur-3xl" />
           <div className="relative overflow-hidden rounded-[3rem] border bg-card p-4 shadow-xl">
-            <div className="rounded-[2.4rem] bg-[linear-gradient(135deg,hsl(342_47%_88%),hsl(31_64%_91%))] p-8">
+            <div className="rounded-[2.4rem] bg-[linear-gradient(135deg,hsl(352_44%_88%),hsl(31_60%_84%))] p-8">
               <div className="mx-auto flex aspect-[4/5] max-w-sm flex-col justify-end rounded-[2rem] border border-white/60 bg-white/45 p-8 shadow-inner backdrop-blur">
                 <Flame className="mb-8 h-14 w-14 text-primary" />
                 <p className="font-serif text-4xl font-semibold">The Signature Glow Edit</p>
