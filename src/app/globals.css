@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+:root {
+  --background: 33 56% 97%;
+  --foreground: 28 27% 16%;
+  --card: 0 0% 100%;
+  --card-foreground: 28 27% 16%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 28 27% 16%;
+  --primary: 342 47% 48%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 31 64% 91%;
+  --secondary-foreground: 27 32% 22%;
+  --muted: 31 38% 91%;
+  --muted-foreground: 28 14% 44%;
+  --accent: 18 66% 86%;
+  --accent-foreground: 27 32% 22%;
+  --destructive: 0 74% 50%;
+  --destructive-foreground: 0 0% 100%;
+  --border: 29 32% 84%;
+  --input: 29 32% 84%;
+  --ring: 342 47% 48%;
+  --radius: 1rem;
+}
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-playfair);
+}
+
+* {
+  border-color: hsl(var(--border));
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background:
+    radial-gradient(circle at top left, hsl(18 66% 91%) 0, transparent 34rem),
+    linear-gradient(180deg, hsl(var(--background)) 0%, hsl(31 52% 95%) 100%);
+  color: hsl(var(--foreground));
+  min-height: 100vh;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+.container-padded {
+  margin-inline: auto;
+  max-width: 76rem;
+  padding-inline: 1rem;
+}
+
+@media (min-width: 768px) {
+  .container-padded {
+    padding-inline: 1.5rem;
+  }
+}
