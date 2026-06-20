@@ -1,4 +1,4 @@
-import { Instagram, Mail, Music2 } from "lucide-react";
+import { Camera, Mail, Music2 } from "lucide-react";
 import Link from "next/link";
 
 export function Footer() {
@@ -31,7 +31,7 @@ export function Footer() {
           <h3 className="text-sm font-semibold uppercase tracking-[0.2em] text-muted-foreground">Social</h3>
           <div className="mt-4 flex gap-3">
             <a className="rounded-full border p-3 hover:bg-secondary" href="https://instagram.com" aria-label="Instagram">
-              <Instagram className="h-4 w-4" />
+              <Camera className="h-4 w-4" />
             </a>
             <a className="rounded-full border p-3 hover:bg-secondary" href="mailto:hello@example.com" aria-label="Email">
               <Mail className="h-4 w-4" />
