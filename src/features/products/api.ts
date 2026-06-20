@@ -2,6 +2,7 @@ import { unstable_noStore as noStore } from "next/cache";
 
 import { sampleProducts } from "@/data/sample-products";
 import type { Product } from "@/features/products/types";
+import { createSupabasePublicClient } from "@/lib/supabase/public";
 import { createSupabaseServerClient } from "@/lib/supabase/server";
 
 type ProductFilters = {
@@ -10,13 +11,15 @@ type ProductFilters = {
 };
 
 export async function getProducts(filters: ProductFilters = {}) {
-  const supabase = await createSupabaseServerClient();
+  const supabase = filters.activeOnly ? createSupabasePublicClient() : await createSupabaseServerClient();
 
   if (!supabase) {
     return filterSampleProducts(filters);
   }
 
-  noStore();
+  if (!filters.activeOnly) {
+    noStore();
+  }
 
   let query = supabase.from("products").select("*").order("createdAt", { ascending: false });
 
@@ -39,13 +42,15 @@ export async function getProducts(filters: ProductFilters = {}) {
 }
 
 export async function getProductBySlug(slug: string, activeOnly = true) {
-  const supabase = await createSupabaseServerClient();
+  const supabase = activeOnly ? createSupabasePublicClient() : await createSupabaseServerClient();
 
   if (!supabase) {
     return filterSampleProducts({ activeOnly }).find((product) => product.slug === slug) ?? null;
   }
 
-  noStore();
+  if (!activeOnly) {
+    noStore();
+  }
 
   let query = supabase.from("products").select("*").eq("slug", slug).limit(1);
 
